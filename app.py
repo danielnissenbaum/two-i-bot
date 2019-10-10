@@ -45,7 +45,9 @@ playlist_theme = "noddy"
 
 @app.route('/',methods=['GET'])
 def deftones():
-        return "you GETTED me"
+    target = os.environ.get('TARGET', 'World')
+    return 'Hello {}!\n'.format(target)
+
 
 
 @app.route('/slack',methods=['POST'])
@@ -186,3 +188,15 @@ def testing():
 
 if __name__ == "__main__":
     app.run()
+
+############################
+
+
+
+@app.route('/')
+def hello_world():
+    target = os.environ.get('TARGET', 'World')
+    return 'Hello {}!\n'.format(target)
+
+if __name__ == "__main__":
+    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
