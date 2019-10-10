@@ -18,7 +18,7 @@ def ziggy(payload):
     response = {"text":"","attachments":""}
     if payload["event"]["type"] == "app_mention":
     #playlist creator
-        if bool(re.search('(?:make|create|haz).*playlist', payload["event"]["text"])):
+        if bool(re.search('(?:some specific thing', payload["event"]["text"])):
             response["text"] = slack_settings.playlist_text
             response["attachments"] = slack_settings.playlist_attachement
             return response
