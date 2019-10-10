@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
-import bowie3,slack_post
+import slack_response_logic,slack_post
 
 #set up app/server variables
 
