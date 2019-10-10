@@ -13,24 +13,26 @@ elif 12 <= currentTime.hour < 18:
 else:
   time = ("Good evening")
 
+#get the message we received from slack, and see what the HECK Is in there!!
 
-def ziggy(payload):
+def logic(payload):
     response = {"text":"","attachments":""}
+    #someone sent a message @ing the bot
     if payload["event"]["type"] == "app_mention":
-    #playlist creator
+    #search their message for some specific thing, if we find it, send something back
         if bool(re.search('(?:some specific thing', payload["event"]["text"])):
-            response["text"] = slack_settings.playlist_text
-            response["attachments"] = slack_settings.playlist_attachement
+            response["text"] = slack_settings.call_to_action_text
+            response["attachments"] = slack_settings.call_to_action_attachement
             return response
-            
-    #we get a mention
+
+    #otherwise it's just a standard @ mention
         else:
             response["text"] = random.choice(slack_settings.mention_text_list)
             return response
 
     #a user is added to the channel
     elif payload["event"]["type"] == "member_joined_channel":
-        response["text"] = time + "! Welcome to the #music channel :wave: :guitar:"
+        response["text"] = time + "! Welcome to the CHANNEL"
         return response
 
     #something weird that we are not expecting
