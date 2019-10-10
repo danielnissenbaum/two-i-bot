@@ -1,7 +1,7 @@
 #all the json elements Slack wants
 
-playlist_text = "So, ya wanna make a playlist, eh?"
-playlist_attachement = [
+call_to_action_text = "CALL THOSE MOTHERS TO ACTION"
+call_to_action_attachement = [
                 {
                     "blocks": [
                         {
@@ -11,10 +11,10 @@ playlist_attachement = [
                                     "type": "button",
                                     "text": {
                                         "type": "plain_text",
-                                        "text": ":guitar: Let's go!"
+                                        "text": "TEXT ON THE BUTTON"
                                         },
-                                    "value": "create_playlist",
-                                    "action_id":"playlist_button"
+                                    "value": "BUTTON VARIABLE NAME",
+                                    "action_id":"BUTTON ID"
                                 }
                             ]
                         }
@@ -29,6 +29,6 @@ mention_text_list = [
     "don't worry, i'm not sentient, these are just words someone told me to say....or did they! But that's not the point, how can I be of service?",
     "What's up?",
     "Sup?",
-    "Can I help you?"
+    "Can I help you?",
+    "GENERIC_BOT_RESPONSE.TXT"
     ]
-

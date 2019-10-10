@@ -2,30 +2,32 @@ from flask import Flask,render_template,request,redirect,g,make_response,Respons
 import requests,os,json,base64,urllib
 import bowie3,slack_post
 
+#set up app/server variables
+
 app = Flask(__name__)
 app.vars={}
 
 slack_message_token = []
 BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
 CLIENT_SIDE_URL = "http://127.0.0.1"
-SERVER_SIDE_URL = "https://slackifybot.herokuapp.com"
+SERVER_SIDE_URL = "SERVER URL GOES HERE"
 PORT = 8080
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
 STATE = ""
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 
-
+#message to display if someone GETs our URL
 
 @app.route('/',methods=['GET'])
-def deftones():
+def you_got_me():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target)
 
-
+#if we receive a message POST from slack
 
 @app.route('/slack',methods=['POST'])
-def weezer():
+def message_from_slack():
     global CHANNEL_ID
     global slack_message_token
     in_payload = request.get_json()
@@ -35,18 +37,20 @@ def weezer():
     if token in slack_message_token:
         print("duplicate message recieved")
     else:
-        response = bowie3.ziggy(in_payload)
+        response = slack_response_logic.logic(in_payload)
         slack_message_token.append(token)
         slack_post.post(response)
 
     return make_response("", 200)
 
+#if we receive a POST from slack about a user action, eg a button press
 
 @app.route('/slack/actions',methods=['POST'])
-def wheatus():
-    global playlist_name
-    global playlist_theme
+def action_from_slack():
+
     in_payload = json.loads(request.form["payload"])
+
+    #if the user pressed a button we can create a dialog box
 
     if in_payload["type"] == "block_actions":
         trigger_id = in_payload["trigger_id"]
@@ -54,20 +58,20 @@ def wheatus():
         out_payload = {
         "trigger_id": trigger_id,
         "dialog": {
-            "callback_id": "playlist_button",
-            "title": "Create a playlist",
-            "submit_label": "Create",
+            "callback_id": "MAKE AN ID",
+            "title": "TITLE OF DIALOG BOX",
+            "submit_label": "TEXT THAT GOES ON SUBMIT BUTTON",
             "state": "Limo",
             "elements": [
                 {
                     "type": "text",
-                    "label": "Playlist name",
-                    "name": "playlist_name_input"
+                    "label": "LABEL THE USER SEES FOR TEXT ENTRY",
+                    "name": "VARIABLE NAME FOR TEXT ENTRY"
                 },
                 {
                     "type": "text",
-                    "label": "What's the theme?",
-                    "name": "theme_input"
+                    "label": "LABEL THE USER SEES FOR TEXT ENTRY 2",
+                    "name": "VARIABLE NAME FOR TEXT ENTRY 2"
                 }
             ]
         }
@@ -77,22 +81,23 @@ def wheatus():
         r = requests.post("https://slack.com/api/dialog.open", headers=headers, data=json.dumps(out_payload))
         return make_response("", 200)
 
+        #if the user submitted a dialog box
+
     elif in_payload["type"] == "dialog_submission":
         req = requests.request('GET', in_payload["response_url"])
-        playlist_name = in_payload["submission"]["playlist_name_input"]
-        playlist_theme = in_payload["submission"]["theme_input"]
+
 
         out_payload = {
         "channel": CHANNEL_ID,
         "token": str(BOT_USER_TOKEN),
-        "text": "Hey <@" + in_payload["user"]["name"] + ">. I'm creating a playlist called \"" + in_payload["submission"]["playlist_name_input"] + "\"",
+        "text": "SAY SOMETHIN",
         "attachments": [
             {
                 "fallback": "Confirm your playlist, ya filthy animal" + auth_url,
                 "actions": [
                     {
                         "type": "button",
-                        "text": ":musical_note: Confirm",
+                        "text": "BUTTON TEXT",
                         "url": auth_url
                     }
                 ]
@@ -113,4 +118,3 @@ def testing():
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
-
