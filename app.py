@@ -44,8 +44,8 @@ def message_from_slack():
     #if this is a general message, we need to check it to see if it's a google doc
     if in_payload["event"]["type"] == "message":
         check_message.check(in_payload)
-    #if we receive a URL verification 'challenge' from slack    
-    if in_payload["event"]:
+    #if we receive a URL verification 'challenge' from slack
+    if in_payload["challenge"]:
             challenge = in_payload["challenge"]
 
             return make_response(challenge, 200)
