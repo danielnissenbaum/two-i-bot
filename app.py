@@ -30,12 +30,12 @@ def you_got_me():
 def challenge():
     in_payload = request.get_json()
     challenge = in_payload["challenge"]
-    print(in_payload)
-    url = ""
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
-    r = requests.post("https://slack.com/api/events", headers=headers, data=json.dumps(challenge))
+    #print(challenge)
+    #url = ""
+    #headers = {"Content-type":"application/json"}
+    #r = requests.post("https://slack.com/api/events", headers=headers, data={"challenge":challenge})
 
-    return make_response("", 200)
+    return make_response(challenge, 200)
 
 #if we receive a message POST from slack
 
