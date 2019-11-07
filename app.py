@@ -57,9 +57,9 @@ def message_from_slack():
 
 
         else:
-        response = slack_response_logic.logic(in_payload)
-        slack_message_token.append(token)
-        slack_post.post(response)
+            response = slack_response_logic.logic(in_payload)
+            slack_message_token.append(token)
+            slack_post.post(response)
 
 return make_response("", 200)
 
