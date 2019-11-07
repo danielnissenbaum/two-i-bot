@@ -36,26 +36,32 @@ def message_from_slack():
     global CHANNEL_ID
     global slack_message_token
     in_payload = request.get_json()
-    CHANNEL_ID = in_payload["event"]["channel"]
-    token = in_payload['event']['client_msg_id']
 
-    if token in slack_message_token:
-        print("duplicate message recieved")
-    #if this is a general message, we need to check it to see if it's a google doc
-    if in_payload["event"]["type"] == "message":
-        check_message.check(in_payload)
     #if we receive a URL verification 'challenge' from slack
+
     if in_payload["challenge"]:
             challenge = in_payload["challenge"]
 
             return make_response(challenge, 200)
-
     else:
+
+        CHANNEL_ID = in_payload["event"]["channel"]
+        token = in_payload['event']['client_msg_id']
+
+        if token in slack_message_token:
+            print("duplicate message recieved")
+            #if this is a general message, we need to check it to see if it's a google doc
+        if in_payload["event"]["type"] == "message":
+        check_message.check(in_payload)
+
+
+
+        else:
         response = slack_response_logic.logic(in_payload)
         slack_message_token.append(token)
         slack_post.post(response)
 
-    return make_response("", 200)
+return make_response("", 200)
 
 #if we receive a POST from slack about a user action, eg a button press
 
