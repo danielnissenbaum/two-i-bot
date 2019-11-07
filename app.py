@@ -8,9 +8,9 @@ app = Flask(__name__)
 app.vars={}
 
 slack_message_token = []
-BOT_USER_TOKEN = os.environ['BOT_USER_TOKEN']
+BOT_USER_TOKEN = os.environ.get('BOT_USER_TOKEN')
 CLIENT_SIDE_URL = "http://127.0.0.1"
-SERVER_SIDE_URL = "SERVER URL GOES HERE"
+SERVER_SIDE_URL = "https://two-i-bot.herokuapp.com"
 PORT = 8080
 REDIRECT_URI = "{}/callback/q".format(SERVER_SIDE_URL)
 STATE = ""
@@ -23,6 +23,19 @@ SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
 def you_got_me():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target)
+
+#if we receive a URL verification 'challenge' from slack
+
+@app.route('/slack/challenge',methods=['POST'])
+def challenge():
+    in_payload = request.get_json()
+    challenge = in_payload["challenge"]
+    print(in_payload)
+    url = ""
+    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(app.BOT_USER_TOKEN)}
+    r = requests.post("https://slack.com/api/events", headers=headers, data=json.dumps(challenge))
+
+    return make_response("", 200)
 
 #if we receive a message POST from slack
 
