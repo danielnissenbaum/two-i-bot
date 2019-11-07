@@ -61,7 +61,7 @@ def message_from_slack():
             slack_message_token.append(token)
             slack_post.post(response)
 
-return make_response("", 200)
+    return make_response("", 200)
 
 #if we receive a POST from slack about a user action, eg a button press
 
