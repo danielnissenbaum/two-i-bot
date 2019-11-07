@@ -52,7 +52,7 @@ def message_from_slack():
             print("duplicate message recieved")
             #if this is a general message, we need to check it to see if it's a google doc
         if in_payload["event"]["type"] == "message":
-        check_message.check(in_payload)
+            check_message.check(in_payload)
 
 
 
