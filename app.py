@@ -32,7 +32,7 @@ def challenge():
     challenge = in_payload["challenge"]
     print(challenge)
     url = ""
-    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(BOT_USER_TOKEN)}
+    headers = {"Content-type":"application/json"}
     r = requests.post("https://slack.com/api/events", headers=headers, data={"challenge":challenge})
 
     return make_response("", 200)
