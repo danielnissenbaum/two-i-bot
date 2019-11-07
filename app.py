@@ -30,10 +30,6 @@ def you_got_me():
 def challenge():
     in_payload = request.get_json()
     challenge = in_payload["challenge"]
-    #print(challenge)
-    #url = ""
-    #headers = {"Content-type":"application/json"}
-    #r = requests.post("https://slack.com/api/events", headers=headers, data={"challenge":challenge})
 
     return make_response(challenge, 200)
 
@@ -49,6 +45,10 @@ def message_from_slack():
 
     if token in slack_message_token:
         print("duplicate message recieved")
+    #if this is a general message, we need to check it to see if it's a google doc
+    if in_payload["event"]["type"] == "message":
+        check_message.check(in_payload)
+
     else:
         response = slack_response_logic.logic(in_payload)
         slack_message_token.append(token)
