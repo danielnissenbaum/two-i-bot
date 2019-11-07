@@ -112,7 +112,7 @@ def action_from_slack():
 
 
 
-@app.route("/test/q")
+@app.route("/redirect")
 def testing():
     return "hello daniel"
 
