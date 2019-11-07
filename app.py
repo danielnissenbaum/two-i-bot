@@ -24,6 +24,18 @@ def you_got_me():
     target = os.environ.get('TARGET', 'World')
     return 'Hello {}!\n'.format(target)
 
+#if we receive a URL verification 'challenge' from slack
+
+@app.route('/slack/challenge',methods=['POST'])
+def challenge():
+    in_payload = request.get_json()
+    challenge = in_payload["challenge"]
+
+    headers = {"Content-type":"application/json;charset=utf-8", "Authorization":"Bearer "+ str(app.BOT_USER_TOKEN)}
+    r = requests.post("https://slack.com/api/", headers=headers, data=json.dumps(payload))
+
+    return make_response("", 200)
+
 #if we receive a message POST from slack
 
 @app.route('/slack',methods=['POST'])
