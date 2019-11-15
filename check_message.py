@@ -1,4 +1,4 @@
-import googlesheets_send
+import googlesheets_send,re
 
 def check(payload):
 
