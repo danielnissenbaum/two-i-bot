@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
-import slack_response_logic,slack_post
+import slack_response_logic,slack_post, check_message
 
 #set up app/server variables
 
