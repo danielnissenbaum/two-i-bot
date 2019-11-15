@@ -39,7 +39,7 @@ def message_from_slack():
 
     #if we receive a URL verification 'challenge' from slack
 
-    if in_payload["challenge"]:
+    if "challenge" in in_payload
             challenge = in_payload["challenge"]
 
             return make_response(challenge, 200)
