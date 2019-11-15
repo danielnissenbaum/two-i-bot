@@ -3,7 +3,7 @@ import googlesheets_send,re
 def check(payload):
 
     message = payload["event"]["text"]
-    if bool(re.search('(?:docs.google.com', payload["event"]["text"])):
+    if bool(re.search('(?:docs.google.com)', payload["event"]["text"])):
         #send(payload)
         print("GOOGLE DOCCCCCCCAAAAAAA")
     else:
