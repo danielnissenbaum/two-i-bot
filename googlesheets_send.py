@@ -1,5 +1,5 @@
 import os
-from apiclient import discovery
+import apiclient
 from google.oauth2 import service_account
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
