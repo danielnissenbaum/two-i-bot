@@ -11,3 +11,4 @@ requests==2.21.0
 urllib3==1.24.2
 Werkzeug==0.15.3
 apiclient==1.0.4
+google-oauth==1.0.1
