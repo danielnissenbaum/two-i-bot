@@ -46,13 +46,15 @@ def message_from_slack():
     else:
 
         CHANNEL_ID = in_payload["event"]["channel"]
-        token = in_payload['event']['client_msg_id']
 
-        if token in slack_message_token:
-            print("duplicate message recieved")
-            #if this is a general message, we need to check it to see if it's a google doc
+        #if this is a general message, we need to check it to see if it's a google doc
+
         if in_payload["event"]["type"] == "message":
             check_message.check(in_payload)
+            token = in_payload['event']['client_msg_id']
+            if token in slack_message_token:
+                print("duplicate message recieved")
+
 
 
 

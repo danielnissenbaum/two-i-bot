@@ -10,7 +10,7 @@ secret_file = os.path.join("creds/","two-i.json")
 SPREADSHEET_ID = '1_2vJ8d2x5fpifx-D7sdmt6IReM9m_f-J1bpCiAt_TaE'
 RANGE_NAME = 'Data!A:E'
 
-def send(**data):
+def send(data):
     #print(data)
 
     credentials = service_account.Credentials.from_service_account_file(secret_file, scopes=SCOPES)
