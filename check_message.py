@@ -4,8 +4,8 @@ def check(payload):
 
     message = payload["event"]["text"]
     if bool(re.search('(?:docs.google.com)', payload["event"]["text"])):
-        #send(payload)
-        print("GOOGLE DOCCCCCCCAAAAAAA")
+        googlesheets_send.send(payload)
+        #print("GOOGLE DOCCCCCCCAAAAAAA")
     else:
         print("IT IS NO GOOGLE")
-    return
+    return make_response("", 200)
