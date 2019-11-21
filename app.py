@@ -36,7 +36,7 @@ def message_from_slack():
     global CHANNEL_ID
     global slack_message_token
     in_payload = request.get_json()
-
+    print(in_payload)
     #if we receive a URL verification 'challenge' from slack
 
     if "challenge" in in_payload:
