@@ -1,4 +1,4 @@
-creds/*.json
+creds/two-i.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
