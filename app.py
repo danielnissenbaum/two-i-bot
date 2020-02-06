@@ -56,7 +56,7 @@ def message_from_slack():
                 print("duplicate message recieved")
 
 
-
+            return make_response("", 200)
 
         else:
             response = slack_response_logic.logic(in_payload)
