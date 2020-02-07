@@ -9,8 +9,12 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 Google_credz = os.environ.get('Google_credz')
 print(type(Google_credz))
 
-secret_file = json.dumps(json.loads(Google_credz))
+secret_file = json.loads(Google_credz)
 print(type(secret_file))
+
+secret_file2 = json.dumps(Google_credz)
+print(type(secret_file2))
+
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1_2vJ8d2x5fpifx-D7sdmt6IReM9m_f-J1bpCiAt_TaE'
 RANGE_NAME = 'Data!A:E'
