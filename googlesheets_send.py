@@ -4,7 +4,8 @@ import urllib3
 from google.oauth2 import service_account
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-secret_file = os.path.join("creds/","twoi.json")
+BASE_PATH = os.path.dirname('two-i-bot')
+secret_file = os.path.join(BASE_PATH,"/creds/","twoi.json")
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1_2vJ8d2x5fpifx-D7sdmt6IReM9m_f-J1bpCiAt_TaE'
