@@ -15,7 +15,7 @@ RANGE_NAME = 'Data!A:E'
 def send(data):
     #print(data)
 
-    credentials = service_account.Credentials.from_service_account_file(secret_file, scopes=SCOPES)
+    credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
     service = discovery.build('sheets','v4', credentials=credentials)
     sheet = service.spreadsheets()
 
