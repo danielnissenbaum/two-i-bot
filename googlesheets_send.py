@@ -7,7 +7,7 @@ from google.oauth2 import service_account
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 secret_file = json.dumps(json.loads(os.environ.get('Google_credz')))
-print(secret_file)
+print(type(secret_file))
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1_2vJ8d2x5fpifx-D7sdmt6IReM9m_f-J1bpCiAt_TaE'
 RANGE_NAME = 'Data!A:E'
