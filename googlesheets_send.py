@@ -31,7 +31,7 @@ def send(data):
 
     #values = result.get('values', [])
 
-    list = [["valuea1"], ["valuea2"], ["valuea3"]]
+    list = data["event"]["text"]
     resource = {
         "majorDimension": "ROWS",
         "values": list
