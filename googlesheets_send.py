@@ -30,8 +30,9 @@ def send(data):
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
 
     #values = result.get('values', [])
-
-    list = [[json.dumps(data["event"]["text"])]]
+    message_text = json.dumps(data["event"]["text"])
+    googledoc_URL = re.search('(?:docs.google.com)', message_text)
+    list = [[googledoc_URL]]
     resource = {
         "range": 'Data!A:E',
         "majorDimension": "ROWS",
