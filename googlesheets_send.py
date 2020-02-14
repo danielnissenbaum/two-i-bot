@@ -31,8 +31,9 @@ def send(data):
 
     #values = result.get('values', [])
 
-    list = [json.dumps(data["event"]["text"])]
+    list = [[json.dumps(data["event"]["text"])]]
     resource = {
+        "range": 'Data!A:E'
         "majorDimension": "ROWS",
         "values": list
     }
