@@ -31,8 +31,12 @@ def send(data):
 
     #values = result.get('values', [])
     message_text = json.dumps(data["event"]["text"])
+
     googledoc_URL = re.search('[^\s]+(?:docs.google.com)[^\s]+', message_text)
-    list = [[googledoc_URL.group(0)]]
+    time_sent = data["event"]["ts"]
+    message_ID = data["event_id"]
+
+    list = [[str(googledoc_URL.group(0)),time_sent,message_ID]]
     resource = {
         "range": 'Data!A:E',
         "majorDimension": "ROWS",
