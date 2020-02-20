@@ -59,7 +59,7 @@ def reaction(data):
     sheet = service.spreadsheets()
 
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
-
+    print(result)
     if data["event_id"] in result:
 
         list = [["DONE"]]
