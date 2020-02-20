@@ -62,7 +62,7 @@ def reaction(data):
     print(result)
 
     for sublist in result["values"]:
-        if data["event_id"] in sublist:
+        if data["event"]["item"]["ts"] in sublist:
             list = [["DONE"]]
 
             resource = {
