@@ -60,24 +60,30 @@ def reaction(data):
 
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
     print(result)
-    if data["event_id"] in result["values"]:
 
-        list = [["DONE"]]
+    for sublist in result["values"]:
+        if data["event_id"] in sublist:
+            list = [["DONE"]]
 
-        resource = {
-            "range": 'Data!D6',
-            "majorDimension": "ROWS",
-            "values": list
-        }
+            resource = {
+                "range": 'Data!D6',
+                "majorDimension": "ROWS",
+                "values": list
+            }
 
-        service.spreadsheets().values().update(
-            spreadsheetId=SPREADSHEET_ID,
-            range=RANGE_NAME,
-            body=resource,
-            valueInputOption="USER_ENTERED"
-        ).execute()
-    else:
-        return
+            service.spreadsheets().values().update(
+                spreadsheetId=SPREADSHEET_ID,
+                range=RANGE_NAME,
+                body=resource,
+                valueInputOption="USER_ENTERED"
+            ).execute()
+            break
+            return
+        else:
+            return
+
+
+
 
 
 if __name__ == '__main__':
