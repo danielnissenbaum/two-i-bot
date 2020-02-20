@@ -53,28 +53,31 @@ def send(data):
 
 
 def reaction(data):
-    RANGE_NAME = 'Data!D6'
+    RANGE_NAME = 'Data!A:E'
     credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
     service = discovery.build('sheets','v4', credentials=credentials)
     sheet = service.spreadsheets()
 
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
 
-    list = [["DONE"]]
+    if data["event_id"] in result:
 
-    resource = {
-        "range": 'Data!D6',
-        "majorDimension": "ROWS",
-        "values": list
-    }
+        list = [["DONE"]]
 
-    service.spreadsheets().values().update(
-        spreadsheetId=SPREADSHEET_ID,
-        range=RANGE_NAME,
-        body=resource,
-        valueInputOption="USER_ENTERED"
-    ).execute()
+        resource = {
+            "range": 'Data!D6',
+            "majorDimension": "ROWS",
+            "values": list
+        }
 
+        service.spreadsheets().values().update(
+            spreadsheetId=SPREADSHEET_ID,
+            range=RANGE_NAME,
+            body=resource,
+            valueInputOption="USER_ENTERED"
+        ).execute()
+    else:
+        return
 
 
 if __name__ == '__main__':
