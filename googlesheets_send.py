@@ -60,7 +60,7 @@ def reaction(data):
 
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
     print(result)
-    if data["event_id"] in result:
+    if data["event_id"] in result["values"]:
 
         list = [["DONE"]]
 
