@@ -80,6 +80,7 @@ def reaction(data):
             break
             return
         else:
+            print(data["event"]["item"]["ts"])
             return
 
 
