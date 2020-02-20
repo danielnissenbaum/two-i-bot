@@ -64,9 +64,9 @@ def message_from_slack():
             slack_message_token.append(token)
             slack_post.post(response)
 
-    elif in_payload["type"] == "reaction_added":
+    elif in_payload["event"]["type"] == "reaction_added":
         googlesheets_send.reaction(in_payload)
-
+        print("WHO GONE DONE AND REACTED TO DIS?")
     else:
 
         return make_response("", 200)
