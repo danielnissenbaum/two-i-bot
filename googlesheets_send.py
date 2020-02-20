@@ -78,10 +78,10 @@ def reaction(data):
                 valueInputOption="USER_ENTERED"
             ).execute()
             break
-            return
+
         else:
             print(data["event"]["item"]["ts"])
-            return
+            
 
 
 
