@@ -18,10 +18,11 @@ print(type(secret_file2))
 
 # The ID and range of a sample spreadsheet.
 SPREADSHEET_ID = '1_2vJ8d2x5fpifx-D7sdmt6IReM9m_f-J1bpCiAt_TaE'
-RANGE_NAME = 'Data!A:E'
+
 
 def send(data):
     #print(data)
+    RANGE_NAME = 'Data!A:E'
 
     credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
     service = discovery.build('sheets','v4', credentials=credentials)
@@ -60,6 +61,7 @@ def reaction(data):
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
 
     list = [["DONE"]]
+    RANGE_NAME = 'Data!D6'
     resource = {
         "range": 'Data!D6',
         "majorDimension": "ROWS",
