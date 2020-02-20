@@ -70,7 +70,7 @@ def reaction(data):
                 "majorDimension": "ROWS",
                 "values": list
             }
-
+            RANGE_NAME = 'Data!D6'
             service.spreadsheets().values().update(
                 spreadsheetId=SPREADSHEET_ID,
                 range=RANGE_NAME,
@@ -81,7 +81,7 @@ def reaction(data):
 
         else:
             print(data["event"]["item"]["ts"])
-            
+
 
 
 
