@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,g,make_response,Response
 import requests,os,json,base64,urllib
-import slack_response_logic,slack_post, check_message
+import slack_response_logic,slack_post, check_message, googlesheets_send
 
 #set up app/server variables
 
@@ -32,6 +32,7 @@ def you_got_me():
 #if we receive a message POST from slack
 
 @app.route('/slack',methods=['POST'])
+
 def message_from_slack():
     global CHANNEL_ID
     global slack_message_token
@@ -43,7 +44,7 @@ def message_from_slack():
             challenge = in_payload["challenge"]
 
             return make_response(challenge, 200)
-    else:
+    elif in_payload["event"]["type"] == "message":
 
         CHANNEL_ID = in_payload["event"]["channel"]
 
@@ -62,6 +63,11 @@ def message_from_slack():
             response = slack_response_logic.logic(in_payload)
             slack_message_token.append(token)
             slack_post.post(response)
+
+    elif in_payload["type"] == "reaction_added":
+        googlesheets_send.reaction(in_payload)
+
+    else:
 
     return make_response("", 200)
 

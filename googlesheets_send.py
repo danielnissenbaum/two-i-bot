@@ -51,7 +51,27 @@ def send(data):
     ).execute()
 
 
+def reaction(data):
 
+    credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
+    service = discovery.build('sheets','v4', credentials=credentials)
+    sheet = service.spreadsheets()
+
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
+
+    list = [["DONE"]]
+    resource = {
+        "range": 'Data!D6',
+        "majorDimension": "ROWS",
+        "values": list
+    }
+
+    service.spreadsheets().values().update(
+        spreadsheetId=SPREADSHEET_ID,
+        range=RANGE_NAME,
+        body=resource,
+        valueInputOption="USER_ENTERED"
+    ).execute()
 
 
 
