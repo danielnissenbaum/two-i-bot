@@ -61,22 +61,12 @@ def reaction(data):
     result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
     print(result)
 
-    for sublist in result["values"]:
+    for index, sublist in enumerate(result["values"]):
         if data["event"]["item"]["ts"] in sublist:
-            list = [["DONE"]]
-
-            resource = {
-                "range": 'Data!D6',
-                "majorDimension": "ROWS",
-                "values": list
-            }
-            RANGE_NAME = 'Data!D6'
-            service.spreadsheets().values().update(
-                spreadsheetId=SPREADSHEET_ID,
-                range=RANGE_NAME,
-                body=resource,
-                valueInputOption="USER_ENTERED"
-            ).execute()
+            row_to_delete = 'A'+str(index)+':E'+ str(index)
+            request_body = {}
+            request = service.spreadsheets().values().clear(spreadsheetId=SPREADSHEET_ID, range=row_to_delete, body=request_body)
+            response = request.execute()
             break
 
         else:
