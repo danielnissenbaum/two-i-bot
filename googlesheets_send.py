@@ -4,6 +4,8 @@ import urllib3
 import json, re
 from google.oauth2 import service_account
 from googleapiclient import discovery
+from datetime import datetime
+import slack_post
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
@@ -63,7 +65,7 @@ def reaction(data):
 
     for index, sublist in enumerate(result["values"]):
         if data["event"]["item"]["ts"] in sublist:
-            row_to_delete = 'A'+str(index)+':E'+ str(index)
+            row_to_delete = 'A'+str((index+1))+':E'+ str((index+1))
             request_body = {}
             request = service.spreadsheets().values().clear(spreadsheetId=SPREADSHEET_ID, range=row_to_delete, body=request_body)
             response = request.execute()
@@ -73,7 +75,24 @@ def reaction(data):
             print(data["event"]["item"]["ts"])
 
 
+def check_spreadsheet():
+    RANGE_NAME = 'Data!A:E'
+    credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
+    service = discovery.build('sheets','v4', credentials=credentials)
+    sheet = service.spreadsheets()
 
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID,range=RANGE_NAME).execute()
+
+
+    for index, sublist in enumerate(result["values"]):
+        if len(sublist) > 1:
+            time_posted = datetime.fromtimestamp(sublist[1])
+            if time_posted.date < datetime.datetime.now()-datetime.timedelta(days=2):
+                slack_message = []
+                slack_message["text"] = "This hasn't been picked up in 2 days. SOMEONE DO IT NOOOOOOOOOWWWWWWWWWW" + sublist[0]
+                slack_message["attachments"] = []
+                slack_post.post(slack_message)
+                break
 
 
 
