@@ -89,8 +89,8 @@ def check_spreadsheet():
         if len(sublist) > 1:
             time_posted = datetime.datetime.fromtimestamp(round(float(sublist[1])))
             print("found a timestamp" + str(time_posted)
-            if datetime.datetime.now() > time_posted + datetime.timedelta(days=2):
-                slack_message = []
+            if datetime.datetime.now() > (time_posted + datetime.timedelta(days=2)):
+
                 slack_message["text"] = "This hasn't been picked up in 2 days. SOMEONE DO IT NOOOOOOOOOWWWWWWWWWW" + sublist[0]
                 print(slack_message["text"])
                 slack_message["attachments"] = []
