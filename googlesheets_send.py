@@ -4,7 +4,7 @@ import urllib3
 import json, re
 from google.oauth2 import service_account
 from googleapiclient import discovery
-from datetime
+import datetime
 import slack_post
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
