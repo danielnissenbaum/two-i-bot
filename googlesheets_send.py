@@ -4,7 +4,7 @@ import urllib3
 import json, re
 from google.oauth2 import service_account
 from googleapiclient import discovery
-from datetime import datetime
+from datetime
 import slack_post
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -87,9 +87,9 @@ def check_spreadsheet():
 
     for index, sublist in enumerate(result["values"]):
         if len(sublist) > 1:
-            time_posted = datetime.fromtimestamp(sublist[1])
+            time_posted = datetime.datetime.fromtimestamp(round(float(sublist[1])))
             print("found a timestamp" + str(time_posted)
-            if time_posted.date < datetime.datetime.now()-datetime.timedelta(days=2):
+            if datetime.datetime.now() > time_posted + datetime.timedelta(days=2):
                 slack_message = []
                 slack_message["text"] = "This hasn't been picked up in 2 days. SOMEONE DO IT NOOOOOOOOOWWWWWWWWWW" + sublist[0]
                 print(slack_message["text"])
