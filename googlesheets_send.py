@@ -74,8 +74,9 @@ def reaction(data):
         else:
             print(data["event"]["item"]["ts"])
 
-
 def check_spreadsheet():
+
+    print("checking spreadsheet")
     RANGE_NAME = 'Data!A:E'
     credentials = service_account.Credentials.from_service_account_info(secret_file, scopes=SCOPES)
     service = discovery.build('sheets','v4', credentials=credentials)
@@ -87,9 +88,11 @@ def check_spreadsheet():
     for index, sublist in enumerate(result["values"]):
         if len(sublist) > 1:
             time_posted = datetime.fromtimestamp(sublist[1])
+            print("found a timestamp" + str(time_posted)
             if time_posted.date < datetime.datetime.now()-datetime.timedelta(days=2):
                 slack_message = []
                 slack_message["text"] = "This hasn't been picked up in 2 days. SOMEONE DO IT NOOOOOOOOOWWWWWWWWWW" + sublist[0]
+                print(slack_message["text"])
                 slack_message["attachments"] = []
                 slack_post.post(slack_message)
                 break
