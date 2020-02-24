@@ -39,6 +39,7 @@ def message_from_slack():
     in_payload = request.get_json()
     print(in_payload)
     #if we receive a URL verification 'challenge' from slack
+    googlesheets_send.check_spreadsheet()
 
     if "challenge" in in_payload:
             challenge = in_payload["challenge"]
